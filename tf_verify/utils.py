@@ -165,6 +165,7 @@ def parse_vnn_lib_prop(file_path):
 
 
 def translate_output_constraints(C_out):
+    constraints = Constraints()
     and_list = []
     for i in range(C_out.shape[0]):
         numeric = C_out[i,-1]
@@ -175,13 +176,13 @@ def translate_output_constraints(C_out):
             if len(l_label)>0:
                 raise NotImplementedError
             else:
-                and_list.append([(l_label, -1, numeric)])
+                constraints.add(l_label, "<=", numeric)
         else:
             l_label = (C_out[i,0:-1]==-1).nonzero()[0]
             g_label = (C_out[i,0:-1]==1).nonzero()[0]
             assert len(l_label)==1 and len(g_label)==1
-            and_list.append([(g_label[0], l_label[0], 0)])
-    return and_list
+            constraints.add(g_label[0], ">", l_label[0])
+    return constraints
 
 
 def translate_input_to_box(C_lb, C_ub, x_0=None, eps=None, domain_bounds=None):

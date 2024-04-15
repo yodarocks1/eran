@@ -371,29 +371,6 @@ class Analyzer:
                     dominant_class = label
                     break
         else:
-            # AND
-            dominant_class = True
-            for or_list in self.output_constraints:
-                # OR
-                or_result = False
-                
-                for is_greater_tuple in or_list:
-                    if is_greater_tuple[1] == -1:
-                        if nub[-1][is_greater_tuple[0]] < float(is_greater_tuple[2]):
-                            or_result = True
-                            break
-                    else: 
-                        if self.domain == 'deepzono' or self.domain == 'refinezono':
-                            if self.is_greater(self.man, element, is_greater_tuple[0], is_greater_tuple[1]):
-                                or_result = True
-                                break
-                        else:
-                            if self.is_greater(self.man, element, is_greater_tuple[0], is_greater_tuple[1], self.use_default_heuristic):
-                                or_result = True
-                                break
-
-                if not or_result:
-                    dominant_class = False
-                    break
+            dominant_class = self.output_constraints(nlb, nub)
         elina_abstract0_free(self.man, element)
         return dominant_class, nlb, nub, label_failed, x
