@@ -18,6 +18,7 @@
 # constraints are in conjunctive normal form (CNF)
 
 import re
+import numpy as np
 
 def clean_string(string):
     return string.replace('\n', '')
