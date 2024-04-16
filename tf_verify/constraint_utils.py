@@ -110,7 +110,7 @@ class Constraint:
             raise ValueError(f"Bad constraint `{constraint}`")
 
         self.repr = " ".join(list(map(lambda n: f"y{int(n)}", labels))) + " " + constraint
-        if other_const:
+        if self.other_const:
             self.repr += " " + str(other)
         elif other is not None:
             self.repr += f" y{int(other)}"
