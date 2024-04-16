@@ -172,7 +172,7 @@ class Constraint:
             else:
                 result = 0
 
-            if invert:
+            if "not" in self.constraint:
                 return 1 - result
             return result
 

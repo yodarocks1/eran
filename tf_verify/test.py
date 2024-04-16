@@ -7,5 +7,10 @@ from read_net_file import read_onnx_net
 import numpy as np
 import tensorflow as tf
 
-eran_ = ERAN(read_onnx_net("~/examples/mnist.onnx")[0], is_onnx=True)
+eran_ = ERAN(read_onnx_net(sys.argv[1])[0], is_onnx=True)
+constraints = constraint_utils.Constraints.from_label((2,))
+specLB = np.zeros(eran_.input_shape)
+specUB = np.full(eran_.input_shape, sys.argv[2])
+
+out = eran_.analyze_box(specLB, specUB, "deeppoly", 1, 1, True, constraints)
 
