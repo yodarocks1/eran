@@ -145,6 +145,7 @@ class Constraint:
         return self.repr
 
     def percent_true(self, lower_bound, upper_bound):
+        # TODO: Check against what the internet says @ https://stackoverflow.com/questions/78332169
         if self.constraint in ["min", "max", "notmin", "notmax"]:
             chosen = self.labels
             unchosen = list(filter(lambda x: x not in chosen, range(len(lower_bound))))
@@ -156,36 +157,42 @@ class Constraint:
             unchosen_low = f(map(lambda x: lower_bound[x], unchosen))
             unchosen_high = f(map(lambda x: upper_bound[x], unchosen))
 
-            if "max" in self.constraint:
-                # ALWAYS a max: low >= high
-                if chosen_low >= unchosen_high:
-                    result = 1
-                # SOMETIMES a max: high >= low
-                elif chosen_high >= unchosen_low:
-                    range_chosen = chosen_high - chosen_low
-                    range_unchosen = unchosen_high - unchosen_low
-                    overlap = chosen_low - unchosen_high
-                    result = (overlap / range_chosen) * (overlap / range_unchosen)
-                # NEVER a max
-                else:
-                    result = 0
-            else:
-                # ALWAYS a min: high <= low
-                if chosen_high <= unchosen_low:
-                    result = 1
-                # SOMETIMES a min: low <= high
-                elif chosen_low <= unchosen_high:
-                    range_chosen = chosen_high - chosen_low
-                    range_unchosen = unchosen_high - unchosen_low
-                    overlap = chosen_high - unchosen_low
-                    result = (overlap / range_chosen) * (overlap / range_unchosen)
-                # NEVER a min
-                else:
-                    result = 0
+            # SIMPLIFIES TO:
 
-            if "not" in self.constraint:
-                return 1 - result
-            return result
+            ########################             ########################
+            #           ╱C=U       #             #           ╱C=U       #
+            # C        ╱           #             # C        ╱           #
+            #    ░░░░░▟█████       #  █: MIN     #    █████▛░░░░░       #  █: MAX
+            #    ░░░░▟██████ Area  #  ░: NOTMIN  #    ████▛░░░░░░ Area  #  ░: NOTMAX
+            #    ░░░▟███████  is   #             #    ███▛░░░░░░░  is   #
+            #    ░░▟████████ Prob- #             #    ██▛░░░░░░░░ Prob- #
+            #    ░▟█████████ abil- #             #    █▛░░░░░░░░░ abil- #
+            # c  ▟██████████ ity   #             # c  ▛░░░░░░░░░░ ity   #
+            #   ╱                  #             #   ╱                  #
+            #  ╱                   #             #  ╱                   #
+            # ╱  u         U       #             # ╱  u         U       #
+            ########################             ########################
+            
+            c, C = chosen_low, chosen_high
+            u, U = unchosen_low, unchosen_high
+            total_area = (C-c)*(U-u)
+
+            if c >= U:
+                max_result = 1
+            elif u >= C:
+                max_result = 0
+            elif U >= C: # C > u
+                max_result = 0.5 * (C-u) * (C-c) # Triangle
+                max_result /= total_area # Normalize to percentage
+            else: # C >= U, U >= c
+                max_result = 0.5 * (U-c) * (U-u) # Triangle
+                max_result += (C-U) * (U-u) # Rectangle
+                max_result /= total_area # Normalize to percentage
+
+            if self.constraint == "min" or self.constraint == "notmax":
+                return 1 - max_result
+            else:
+                return max_result
 
         elif self.constraint in [">", "<", ">=", "<="]:
             v1_low = lower_bound[self.labels[0]]
