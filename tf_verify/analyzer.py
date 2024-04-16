@@ -371,6 +371,6 @@ class Analyzer:
                     dominant_class = label
                     break
         else:
-            dominant_class = self.output_constraints(nlb, nub)
+            dominant_class = self.output_constraints(nlb[-1], nub[-1])
         elina_abstract0_free(self.man, element)
         return dominant_class, nlb, nub, label_failed, x
