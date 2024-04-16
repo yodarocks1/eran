@@ -151,38 +151,37 @@ class Constraint:
 
             f = max if "max" in self.constraint else min
 
-            print("lb", np.array(lower_bound).shape)
-            print("ub", np.array(upper_bound).shape)
-            print("lower_bound", lower_bound)
-            print("upper_bound", upper_bound)
-
             chosen_low = f(map(lambda x: lower_bound[x], chosen))
             chosen_high = f(map(lambda x: upper_bound[x], chosen))
             unchosen_low = f(map(lambda x: lower_bound[x], unchosen))
             unchosen_high = f(map(lambda x: upper_bound[x], unchosen))
 
-            print(self.constraint)
-            print("chosen_low", chosen_low)
-            print("chosen_high", chosen_high)
-            print("unchosen_low", unchosen_low)
-            print("unchosen_high", unchosen_high)
-
-            # Switching the chosen and unchosen highs and lows, and using max, is logically equivalent to using min
-            if "min" in self.constraint:
-                chosen_low, chosen_high, unchosen_low, unchosen_high = unchosen_low, unchosen_high, chosen_low, chosen_high
-
-            # ALWAYS a max: low >= high
-            if chosen_low >= unchosen_high:
-                result = 1
-            # SOMETIMES a max: high >= low
-            elif chosen_high >= unchosen_low:
-                range_chosen = chosen_high - chosen_low
-                range_unchosen = unchosen_high - unchosen_low
-                overlap = chosen_high - unchosen_low
-                result = (overlap / range_chosen) * (overlap / range_unchosen)
-            # NEVER a max
+            if "max" in self.constraint:
+                # ALWAYS a max: low >= high
+                if chosen_low >= unchosen_high:
+                    result = 1
+                # SOMETIMES a max: high >= low
+                elif chosen_high >= unchosen_low:
+                    range_chosen = chosen_high - chosen_low
+                    range_unchosen = unchosen_high - unchosen_low
+                    overlap = chosen_low - unchosen_high
+                    result = (overlap / range_chosen) * (overlap / range_unchosen)
+                # NEVER a max
+                else:
+                    result = 0
             else:
-                result = 0
+                # ALWAYS a min: high <= low
+                if chosen_high <= unchosen_low:
+                    result = 1
+                # SOMETIMES a min: low <= high
+                elif chosen_low <= unchosen_high:
+                    range_chosen = chosen_high - chosen_low
+                    range_unchosen = unchosen_high - unchosen_low
+                    overlap = chosen_high - unchosen_low
+                    result = (overlap / range_chosen) * (overlap / range_unchosen)
+                # NEVER a min
+                else:
+                    result = 0
 
             if "not" in self.constraint:
                 return 1 - result
