@@ -155,7 +155,13 @@ class Constraint:
             unchosen_low = f(map(lambda x: lower_bound[x], unchosen))
             unchosen_high = f(map(lambda x: upper_bound[x], unchosen))
 
-            # Invert mins so we only have to check once
+            print(self.constraint)
+            print("chosen_low", chosen_low)
+            print("chosen_high", chosen_high)
+            print("unchosen_low", unchosen_low)
+            print("unchosen_high", unchosen_high)
+
+            # Switching the chosen and unchosen highs and lows, and using max, is logically equivalent to using min
             if "min" in self.constraint:
                 chosen_low, chosen_high, unchosen_low, unchosen_high = unchosen_low, unchosen_high, chosen_low, chosen_high
 
