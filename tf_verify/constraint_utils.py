@@ -151,8 +151,10 @@ class Constraint:
 
             f = max if "max" in self.constraint else min
 
-            print(np.array(chosen).shape)
-            print(np.array(unchosen).shape)
+            print("lb", np.array(lower_bound).shape)
+            print("ub", np.array(upper_bound).shape)
+            print("lower_bound", lower_bound)
+            print("upper_bound", upper_bound)
 
             chosen_low = f(map(lambda x: lower_bound[x], chosen))
             chosen_high = f(map(lambda x: upper_bound[x], chosen))
