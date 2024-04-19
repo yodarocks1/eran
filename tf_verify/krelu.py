@@ -179,7 +179,7 @@ def sparse_heuristic_curve(length, lb, ub, is_sigm, s=-2):
 
 
 def encode_kactivation_cons(nn, man, element, offset, layerno, length, lbi, ubi, constraint_groups, need_pop, domain, activation_type, K=3, s=-2, approx=True):
-    import .deepzono_nodes as dn
+    from . import deepzono_nodes as dn
     if need_pop:
         constraint_groups.pop()
 
