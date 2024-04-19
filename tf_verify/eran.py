@@ -15,10 +15,10 @@
 """
 
 
-from tensorflow_translator import *
-from onnx_translator import *
-from optimizer import *
-from analyzer import *
+from .tensorflow_translator import *
+from .onnx_translator import *
+from .optimizer import *
+from .analyzer import *
 
 
 class ERAN:

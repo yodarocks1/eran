@@ -1,5 +1,5 @@
-from optimizer import *
-from krelu import *
+from .optimizer import *
+from .krelu import *
 import time
 
 def refine_gpupoly_results(nn, network, num_gpu_layers, relu_layers, true_label, labels_to_be_verified, K=3, s=-2,

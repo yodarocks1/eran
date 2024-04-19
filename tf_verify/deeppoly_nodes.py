@@ -16,19 +16,19 @@
 
 
 import numpy as np
-from config import config, Device
+from .config import config, Device
 
 if config.device == Device.CPU:
-    from fppoly import *
+    from elina.fppoly import *
 else:
-    from fppoly_gpu import *
+    from elina.fppoly_gpu import *
 
-from elina_interval import *
-from elina_abstract0 import *
-from elina_manager import *
-from ai_milp import *
+from elina.elina_interval import *
+from elina.elina_abstract0 import *
+from elina.elina_manager import *
+from .ai_milp import *
 from functools import reduce
-from refine_activation import *
+from .refine_activation import *
 
 
 def calc_bounds(man, element, nn, nlb, nub, relu_groups, is_refine_layer = False, destroy=True, use_krelu = False):

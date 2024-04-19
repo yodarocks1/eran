@@ -15,12 +15,12 @@
 """
 
 
-from elina_abstract0 import *
-from elina_manager import *
-from deeppoly_nodes import *
-from deepzono_nodes import *
+from elina.elina_abstract0 import *
+from elina.elina_manager import *
+from .deeppoly_nodes import *
+from .deepzono_nodes import *
 from functools import reduce
-from ai_milp import milp_callback
+from .ai_milp import milp_callback
 import gc
 
 class layers:

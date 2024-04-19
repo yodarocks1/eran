@@ -1,9 +1,9 @@
 import sys
 sys.path.insert(0, '../ELINA/python_interface/')
 sys.path.insert(0, '../deepg/code/')
-from ml_constraints import Constraints
-from eran import ERAN
-from read_net_file import read_onnx_net
+from .ml_constraints import Constraints
+from . import ERAN
+from .read_net_file import read_onnx_net
 import numpy as np
 import tensorflow as tf
 

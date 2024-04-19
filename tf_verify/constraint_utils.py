@@ -18,7 +18,7 @@
 # constraints are in conjunctive normal form (CNF)
 
 import re
-from ml_constraints import Constraints, Constraint
+from .ml_constraints import Constraints, Constraint
 
 def clean_string(string):
     return string.replace('\n', '')

@@ -15,18 +15,18 @@
 """
 
 import warnings
-from deepzono_nodes import *
-from deeppoly_nodes import *
+from .deepzono_nodes import *
+from .deeppoly_nodes import *
 # if config.domain=='gpupoly' or config.domain=='refinegpupoly':
 try:
-    from gpupoly import Network
+    from elina.gpupoly import Network
     GPU_FLAG = True
 except:
     GPU_FLAG = False
     warnings.warn("gpupoly not available.")
 from functools import reduce
 import numpy as np
-from read_net_file import *
+from .read_net_file import *
 
 
 operations_for_neuron_count = ["Relu", "Sigmoid", "Tanh", "MaxPool", "LeakyRelu"]

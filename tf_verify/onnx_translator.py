@@ -18,7 +18,7 @@
 import numpy as np
 import onnx
 from onnx import numpy_helper
-from config import config
+from .config import config
 import warnings
 
 def onnxshape_to_intlist(onnxshape):

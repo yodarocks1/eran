@@ -16,15 +16,15 @@
 
 
 import numpy as np
-from zonoml import *
-from elina_interval import *
-from elina_abstract0 import *
-from elina_manager import *
-from elina_dimension import *
+from elina.zonoml import *
+from elina.elina_interval import *
+from elina.elina_abstract0 import *
+from elina.elina_manager import *
+from elina.elina_dimension import *
 from functools import reduce
-from ai_milp import *
-from config import config
-from refine_activation import *
+from .ai_milp import *
+from .config import config
+from .refine_activation import *
 
 
 

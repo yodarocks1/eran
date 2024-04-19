@@ -16,9 +16,9 @@
 
 
 from gurobipy import *
-from fconv import *
+from elina.fconv import *
 import numpy as np
-from config import config
+from .config import config
 import multiprocessing
 import math
 import sys

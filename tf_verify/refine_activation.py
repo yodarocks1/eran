@@ -16,19 +16,19 @@
 
 
 import numpy as np
-from zonoml import *
-from elina_interval import *
-from elina_abstract0 import *
-from elina_manager import *
-from elina_dimension import *
+from elina.zonoml import *
+from elina.elina_interval import *
+from elina.elina_abstract0 import *
+from elina.elina_manager import *
+from elina.elina_dimension import *
 from functools import reduce
-from ai_milp import *
-from krelu import encode_kactivation_cons
-from config import *
+from .ai_milp import *
+from .krelu import encode_kactivation_cons
+from .config import *
 if config.device == Device.CPU:
-    from fppoly import *
+    from elina.fppoly import *
 else:
-    from fppoly_gpu import *
+    from elina.fppoly_gpu import *
 import time
 
 
