@@ -19,7 +19,8 @@ while : ; do
     shift
 done
 
-
+# INSTALLED via APT
+# PREREQ for ELINA
 #wget ftp://ftp.gnu.org/pub/gnu/m4/m4-1.4.18.tar.gz
 #tar -xvzf m4-1.4.18.tar.gz
 #cd m4-1.4.18
@@ -31,7 +32,7 @@ done
 #rm m4-1.4.18.tar.gz
 
 
-
+# PREREQ for ELINA
 wget https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz
 tar -xvf gmp-6.1.2.tar.xz
 cd gmp-6.1.2
@@ -42,7 +43,7 @@ cd ..
 rm gmp-6.1.2.tar.xz
 
 
-
+# PREREQ for ELINA
 wget https://files.sri.inf.ethz.ch/eran/mpfr/mpfr-4.1.0.tar.xz
 tar -xvf mpfr-4.1.0.tar.xz
 cd mpfr-4.1.0
@@ -52,6 +53,7 @@ make install
 cd ..
 rm mpfr-4.1.0.tar.xz
 
+# SPEEDUP for ELINA
 wget https://github.com/cddlib/cddlib/releases/download/0.94m/cddlib-0.94m.tar.gz
 tar zxf cddlib-0.94m.tar.gz
 cd cddlib-0.94m
@@ -60,6 +62,7 @@ make
 make install
 cd ..
 
+# SPEEDUP for ELINA
 wget https://packages.gurobi.com/9.1/gurobi9.1.2_linux64.tar.gz
 tar -xvf gurobi9.1.2_linux64.tar.gz
 cd gurobi912/linux64/src/build
@@ -94,15 +97,25 @@ make
 make install
 cd ..
 
-git clone https://github.com/eth-sri/deepg.git
-cd deepg/code
-mkdir build
-make shared_object
-cp ./build/libgeometric.so /usr/lib
-cd ../..
+#git clone https://github.com/eth-sri/deepg.git
+#cd deepg/code
+#mkdir build
+#make shared_object
+#cp ./build/libgeometric.so /usr/lib
+#cd ../..
 
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib
 
 #wget https://files.sri.inf.ethz.ch/eran/nets/tensorflow/mnist/mnist_relu_3_50.tf
 
 ldconfig
+
+touch ELINA/python_interface/__init__.py
+mkdir python_interface
+ln -s ELINA/python_interface python_interface/elina
+ln -s tf_verify python_interface/eran
+
+echo "To use ERAN, add '$ERAN_INSTALL_LOCATION/python_interface/' to your \$PYTHONPATH, or add the following lines to the top of your python file:"
+echo " import sys"
+echo " sys.path.insert(0, '$ERAN_INSTALL_LOCATION/python_interface/')"
+
