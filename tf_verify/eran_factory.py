@@ -30,7 +30,7 @@ def from_keras(netname):
     model = tf.keras.models.load_model(netname)
     return ERAN(model)
 
-non_layer_operation_types = []
+non_layer_operation_types = ['NoOp', 'Assign', 'Const', 'RestoreV2', 'SaveV2', 'PlaceholderWithDefault', 'IsVariableInitialized', 'Placeholder', 'Identity']
 def from_sess(netname, sess):
     ops = sess.graph.get_operations()
     last_layer_index = -1
