@@ -111,8 +111,8 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib
 ldconfig
 
 mkdir python_interface
-ln -s ./ELINA/python_interface ./python_interface/elina
-ln -s ./tf_verify ./python_interface/eran
+ln -s ../ELINA/python_interface ./python_interface/elina
+ln -s ../tf_verify ./python_interface/eran
 
 echo "To use ERAN, add '$ERAN_INSTALL_LOCATION/python_interface/' to your \$PYTHONPATH, or add the following lines to the top of your python file:"
 echo " import sys"
