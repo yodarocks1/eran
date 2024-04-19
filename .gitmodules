@@ -1,0 +1,3 @@
+[submodule "ml_constraints"]
+	path = tf_verify/ml_constraints
+	url = https://github.com/yodarocks1/ml_constraints.git
