@@ -21,8 +21,8 @@ from itertools import product
 import torch
 from gurobipy import GRB, Model, quicksum
 
-from spatial.t_norm_transformer import TNormTransformer
-from spatial.interpolation import interpolate
+from .t_norm_transformer import TNormTransformer
+from .interpolation import interpolate
 
 
 class TInfNormTransformer(TNormTransformer):

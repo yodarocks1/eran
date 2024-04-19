@@ -19,9 +19,9 @@ import math
 from itertools import product
 
 import torch
-from spatial.t_norm_transformer import TNormTransformer
-from spatial.t_inf_norm_transformer import TInfNormTransformer
-from spatial.interpolation import interpolate
+from .t_norm_transformer import TNormTransformer
+from .t_inf_norm_transformer import TInfNormTransformer
+from .interpolation import interpolate
 
 
 class T1NormTransformer(TNormTransformer):

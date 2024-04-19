@@ -22,9 +22,9 @@ import numpy as np
 import torch
 from mpmath import polyroots
 
-from spatial.t_inf_norm_transformer import TInfNormTransformer
-from spatial.t_norm_transformer import TNormTransformer
-from spatial.interpolation import interpolate
+from .t_inf_norm_transformer import TInfNormTransformer
+from .t_norm_transformer import TNormTransformer
+from .interpolation import interpolate
 
 
 class T2NormTransformer(TNormTransformer):
