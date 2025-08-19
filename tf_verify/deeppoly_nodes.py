@@ -666,7 +666,7 @@ class DeeppolyGather:
         add_input_output_information_deeppoly(self, input_names, output_name, output_shape)
 
     def transformer(self, nn, man, element, nlb, nub, relu_groups, refine, timeout_lp, timeout_milp, use_default_heuristic, testing):
-        handle_gather_layer(man, element, self.indexes)
+        handle_gather_layer(man, True, element, self.indexes)
         return element
 
 
