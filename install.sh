@@ -19,14 +19,24 @@ gmp_args="--enable-cxx"
 mpfr_args=""
 cddlib_args=""
 elina_args="-use-deeppoly -use-gurobi -use-fconv"
+arch="native"
+os="unknown-unknown"
 help="0"
 
 while : ; do
     case "$1" in
         "")
             break;;
-        -use-cuda|--use-cuda|--elina-use-cuda)
+        -use-cuda|--use-cuda|-elina-use-cuda|--elina-use-cuda)
          has_cuda=1;;
+        -arch=*|--arch=*)
+         arch="${1#*=}";;
+        -arch|--arch)
+         arch="$2"; shift;;
+        -os=*|--os=*)
+         os="${1#*=}";;
+        -os|--os)
+         os="$2"; shift;;
         -gmp-*|--gmp-*)
          gmp_args="$gmp_args --${1#--gmp-}";;
         -mpfr-*|--mpfr-*)
@@ -45,6 +55,12 @@ while : ; do
     esac
     shift
 done
+
+if [ "$arch" != "native" ]; then
+    gmp_args="$gmp_args --host=$arch-$os"
+elif [ "$os" != "unknown-unknown" ]; then
+    echo "If --arch=native, then --os will be the current device. Ignoring --os=$os"
+fi
 
 helpMain() {
     echo -e "\e[1m--use-cuda\n\e[22m\tEnables GPU support"
