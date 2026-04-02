@@ -59,7 +59,7 @@ done
 if [ "$arch" != "native" ]; then
     gmp_args="$gmp_args --host=$arch-$os"
 elif [ "$os" != "unknown-unknown" ]; then
-    echo "If --arch=native, then --os will be the current device. Ignoring --os=$os"
+    echo "If --arch=native, then --os will be the current device"
 fi
 
 helpMain() {
@@ -271,6 +271,9 @@ fi
 wget https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz
 tar -xvf gmp-6.1.2.tar.xz
 cd gmp-6.1.2
+if [ $arch != "native" ]; then
+    find . -type f \( -name "CMakeLists.txt" -o -name "Makefile*" -o -name "*.sh" -o -name "configure" \) -exec sed -i 's/-march=native/-march=$arch/g' {} +
+fi
 ./configure $gmp_args
 make
 make install
@@ -282,6 +285,9 @@ rm gmp-6.1.2.tar.xz
 wget https://files.sri.inf.ethz.ch/eran/mpfr/mpfr-4.1.0.tar.xz
 tar -xvf mpfr-4.1.0.tar.xz
 cd mpfr-4.1.0
+if [ $arch != "native" ]; then
+    find . -type f \( -name "CMakeLists.txt" -o -name "Makefile*" -o -name "*.sh" -o -name "configure" \) -exec sed -i 's/-march=native/-march=$arch/g' {} +
+fi
 ./configure $mpfr_args
 make
 make install
@@ -292,6 +298,9 @@ rm mpfr-4.1.0.tar.xz
 wget https://github.com/cddlib/cddlib/releases/download/0.94m/cddlib-0.94m.tar.gz
 tar zxf cddlib-0.94m.tar.gz
 cd cddlib-0.94m
+if [ $arch != "native" ]; then
+    find . -type f \( -name "CMakeLists.txt" -o -name "Makefile*" -o -name "*.sh" -o -name "configure" \) -exec sed -i 's/-march=native/-march=$arch/g' {} +
+fi
 ./configure $cddlib_args
 make
 make install
@@ -301,6 +310,9 @@ cd ..
 wget https://packages.gurobi.com/9.1/gurobi9.1.2_linux64.tar.gz
 tar -xvf gurobi9.1.2_linux64.tar.gz
 cd gurobi912/linux64/src/build
+if [ $arch != "native" ]; then
+    find . -type f \( -name "CMakeLists.txt" -o -name "Makefile*" -o -name "*.sh" -o -name "configure" \) -exec sed -i 's/-march=native/-march=$arch/g' {} +
+fi
 sed -ie 's/^C++FLAGS =.*$/& -fPIC/' Makefile
 make
 cp libgurobi_c++.a ../../lib/
@@ -319,6 +331,9 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib:${GUROBI_HOME}/l
 
 git clone https://github.com/yodarocks1/ELINA.git
 cd ELINA
+if [ $arch != "native" ]; then
+    find . -type f \( -name "CMakeLists.txt" -o -name "Makefile*" -o -name "*.sh" -o -name "configure" \) -exec sed -i 's/-march=native/-march=$arch/g' {} +
+fi
 if test "$has_cuda" -eq 1
 then
     ./configure -use-cuda $elina_args
