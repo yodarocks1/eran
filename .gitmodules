@@ -1,3 +1,6 @@
 [submodule "ml_constraints"]
 	path = tf_verify/ml_constraints
 	url = https://github.com/yodarocks1/ml_constraints.git
+[submodule "dependencies/ELINA"]
+	path = dependencies/ELINA
+	url = git@github.com:yodarocks1/ELINA.git
