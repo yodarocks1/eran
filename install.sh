@@ -57,7 +57,7 @@ while : ; do
 done
 
 if [ "$arch" != "native" ]; then
-    gmp_args="$gmp_args --host=$arch-$os"
+    gmp_args="$gmp_args --host=${arch//-/_}-$os"
 elif [ "$os" != "unknown-unknown" ]; then
     echo "If --arch=native, then --os will be the current device"
 fi
