@@ -113,7 +113,7 @@ class layers:
 
 
 class Analyzer:
-    def __init__(self, ir_list, nn, domain, timeout_lp, timeout_milp, output_constraints, use_default_heuristic, label,
+    def __init__(self, ir_list, nn, domain, timeout_lp, timeout_milp, output_constraint, use_default_heuristic, label,
                  prop, testing = False, K=3, s=-2, timeout_final_lp=100, timeout_final_milp=100, use_milp=False,
                  complete=False, partial_milp=False, max_milp_neurons=30, approx_k=True):
         """
@@ -142,7 +142,7 @@ class Analyzer:
         self.timeout_final_lp = timeout_final_lp
         self.timeout_final_milp = timeout_final_milp
         self.use_milp = use_milp
-        self.output_constraints = output_constraints
+        self.output_constraint = output_constraint
         self.use_default_heuristic = use_default_heuristic
         self.testing = testing
         self.relu_groups = []
@@ -261,7 +261,7 @@ class Analyzer:
 
         label_failed = []
         x = None
-        if self.output_constraints is None:
+        if self.output_constraint is None:
             
             candidate_labels = []
             if self.label == -1:
@@ -371,6 +371,6 @@ class Analyzer:
                     dominant_class = label
                     break
         else:
-            dominant_class = self.output_constraints(nlb[-1], nub[-1])
+            dominant_class = self.output_constraint(nlb[-1], nub[-1])
         elina_abstract0_free(self.man, element)
         return dominant_class, nlb, nub, label_failed, x
