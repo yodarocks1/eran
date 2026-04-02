@@ -330,7 +330,7 @@ export PATH="${PATH}:/usr/lib:${GUROBI_HOME}/bin"
 export CPATH="${CPATH}:${GUROBI_HOME}/include"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib:${GUROBI_HOME}/lib
 
-#git clone https://github.com/yodarocks1/ELINA.git
+git clone https://github.com/yodarocks1/ELINA.git
 cd ELINA
 if [ $arch != "native" ]; then
     find . -type f \( -name "CMakeLists.txt" -o -name "Makefile*" -o -name "*.sh" -o -name "configure" \) -exec sed -i 's/-march=native/-march=$arch/g' {} +
