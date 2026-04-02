@@ -266,9 +266,10 @@ fi
 #cd ..
 #rm m4-1.4.18.tar.gz
 
+cd dependencies
 
 # PREREQ for ELINA
-wget https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz
+#wget https://gmplib.org/download/gmp/gmp-6.1.2.tar.xz
 tar -xvf gmp-6.1.2.tar.xz
 cd gmp-6.1.2
 if [ $arch != "native" ]; then
@@ -282,7 +283,7 @@ rm gmp-6.1.2.tar.xz
 
 
 # PREREQ for ELINA
-wget https://files.sri.inf.ethz.ch/eran/mpfr/mpfr-4.1.0.tar.xz
+#wget https://files.sri.inf.ethz.ch/eran/mpfr/mpfr-4.1.0.tar.xz
 tar -xvf mpfr-4.1.0.tar.xz
 cd mpfr-4.1.0
 if [ $arch != "native" ]; then
@@ -295,7 +296,7 @@ cd ..
 rm mpfr-4.1.0.tar.xz
 
 # SPEEDUP for ELINA
-wget https://github.com/cddlib/cddlib/releases/download/0.94m/cddlib-0.94m.tar.gz
+#wget https://github.com/cddlib/cddlib/releases/download/0.94m/cddlib-0.94m.tar.gz
 tar zxf cddlib-0.94m.tar.gz
 cd cddlib-0.94m
 if [ $arch != "native" ]; then
@@ -307,7 +308,7 @@ make install
 cd ..
 
 # SPEEDUP for ELINA
-wget https://packages.gurobi.com/9.1/gurobi9.1.2_linux64.tar.gz
+#wget https://packages.gurobi.com/9.1/gurobi9.1.2_linux64.tar.gz
 tar -xvf gurobi9.1.2_linux64.tar.gz
 cd gurobi912/linux64/src/build
 if [ $arch != "native" ]; then
@@ -329,7 +330,7 @@ export PATH="${PATH}:/usr/lib:${GUROBI_HOME}/bin"
 export CPATH="${CPATH}:${GUROBI_HOME}/include"
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/lib:/usr/local/lib:${GUROBI_HOME}/lib
 
-git clone https://github.com/yodarocks1/ELINA.git
+#git clone https://github.com/yodarocks1/ELINA.git
 cd ELINA
 if [ $arch != "native" ]; then
     find . -type f \( -name "CMakeLists.txt" -o -name "Makefile*" -o -name "*.sh" -o -name "configure" \) -exec sed -i 's/-march=native/-march=$arch/g' {} +
@@ -354,6 +355,8 @@ cd ..
 #cp ./build/libgeometric.so /usr/lib
 #cd ../..
 
+cd ..
+
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib
 
 #wget https://files.sri.inf.ethz.ch/eran/nets/tensorflow/mnist/mnist_relu_3_50.tf
@@ -361,7 +364,7 @@ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/usr/local/lib:/usr/lib
 ldconfig
 
 mkdir python_interface
-ln -s ../ELINA/python_interface ./python_interface/elina
+ln -s ../dependencies/ELINA/python_interface ./python_interface/elina
 ln -s ../tf_verify ./python_interface/eran
 
 echo "To use ERAN, add '$ERAN_INSTALL_LOCATION/python_interface/' to your \$PYTHONPATH, or add the following lines to the top of your python file:"
