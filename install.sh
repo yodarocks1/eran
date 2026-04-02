@@ -309,6 +309,8 @@ cd ..
 
 # SPEEDUP for ELINA
 #wget https://packages.gurobi.com/9.1/gurobi9.1.2_linux64.tar.gz
+mv gurobi9.1.2_linux64.tar.gz ..
+cd ..
 tar -xvf gurobi9.1.2_linux64.tar.gz
 cd gurobi912/linux64/src/build
 if [ $arch != "native" ]; then
@@ -322,6 +324,7 @@ cp lib/libgurobi91.so /usr/local/lib
 python3 setup.py install
 cd ../../
 rm gurobi9.1.2_linux64.tar.gz
+cd dependencies
 
 
 
